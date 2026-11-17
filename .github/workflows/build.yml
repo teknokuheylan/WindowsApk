@@ -17,11 +17,7 @@ jobs:
         with:
           gradle-version: '8.9'
       - name: Android SDK paketleri
-        run: |
-          SDKM=$(find "${ANDROID_HOME:-$ANDROID_SDK_ROOT}/cmdline-tools" -name sdkmanager | head -1)
-echo "sdkmanager: $SDKM"
-yes | "$SDKM" --licenses > /dev/null || true
-"$SDKM" "platforms;android-35" "build-tools;35.0.0" "ndk;27.2.12479018" "cmake;3.22.1"
+        run: 'SDKM=$(find "${ANDROID_HOME:-$ANDROID_SDK_ROOT}/cmdline-tools" -name sdkmanager | head -1); yes | "$SDKM" --licenses > /dev/null || true; "$SDKM" "platforms;android-35" "build-tools;35.0.0" "ndk;27.2.12479018" "cmake;3.22.1"'
       - name: Derle
         run: gradle :app:assembleDebug --no-daemon
       - name: SHA-256
